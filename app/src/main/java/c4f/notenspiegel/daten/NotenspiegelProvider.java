@@ -160,9 +160,45 @@ public class NotenspiegelProvider extends ContentProvider{
         return ContentUris.withAppendedId(uri, id);
     }
     @Override
-    public int delete(Uri uri, String s, String[] strings) {
-        //TODO
-        return 0;
+    public int delete(Uri uri, String selection, String[] selectionArgs) {
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        int rowsDeleted;
+
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case NOTEN:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(NotenEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case NOTEN_ID:
+                // Delete a single row given by the ID in the URI
+                selection = NotenEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(NotenEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case FACH:
+                // Delete all rows that match the selection and selection args
+                rowsDeleted = database.delete(FachEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case FACH_ID:
+                // Delete a single row given by the ID in the URI
+                selection = FachEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                rowsDeleted = database.delete(FachEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Deletion is not supported for " + uri);
+        }
+
+        // If 1 or more rows were deleted, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows deleted
+        return rowsDeleted;
     }
 
     @Override

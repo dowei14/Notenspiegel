@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Notenspiegel</string>
+    <string name="leerer_fach_view_text">Kein Fach eingetragen</string>
+</resources>

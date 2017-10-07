@@ -5,12 +5,12 @@
     tools:context=".FaecherActivity">
 
     <item
-        android:id="@+id/action_dummy_fach_einfuegen"
+        android:id="@+id/action_dummy_note_einfuegen"
         android:title="@string/dummy_fach_einfügen"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_alle_faecher_loeschen"
-        android:title="@string/action_alle_faecher_loeschen"
+        android:id="@+id/action_alle_noten_loeschen"
+        android:title="@string/action_alle_noten_loeschen"
         app:showAsAction="never" />
 </menu>

@@ -2,5 +2,8 @@
     <string name="app_name">Notenspiegel</string>
     <string name="leerer_fach_view_text">Kein Fach eingetragen</string>
     <string name="dummy_fach_einfügen">Dummy Fach einfügen</string>
-    <string name="action_delete_all_entries">Alle Fächer löschen</string>
+    <string name="dummy_note_einfügen">Dummy Note einfügen</string>
+    <string name="action_alle_faecher_loeschen">Alle Fächer löschen</string>
+    <string name="action_alle_noten_loeschen">Alle Noten löschen</string>
+    <string name="noten_activity_name">Notenspiegel: Noten</string>
 </resources>

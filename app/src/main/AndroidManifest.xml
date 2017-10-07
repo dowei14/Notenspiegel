@@ -15,6 +15,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NotenActivity"
+            android:label="@string/noten_activity_name"
+            android:parentActivityName=".FaecherActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".FaecherActivity" />
+        </activity>
+
         <provider
             android:authorities="com.c4f.android.notenspiegel"
             android:name=".daten.NotenspiegelProvider"

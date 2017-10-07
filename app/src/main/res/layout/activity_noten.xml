@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FaecherActivity">
+    tools:context=".NotenActivity">
 
     <ListView
-        android:id="@+id/faecher_list"
+        android:id="@+id/noten_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/leerer_text_view_faecher"
+        android:id="@+id/leerer_text_view_noten"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/leerer_fach_view_text"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_faecher"
+        android:id="@+id/fab_noten"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

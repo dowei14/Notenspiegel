@@ -1,14 +1,17 @@
 package c4f.notenspiegel;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.widget.Toast;
 import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
 public class FaecherActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+    private static final String LOG_NAME = FaecherActivity.class.getSimpleName();
+
     /** Identifier for the pet data loader */
     private static final int NOTENSPIEGEL_LOADER = 0;
 
@@ -28,9 +33,8 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_faecher);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +97,13 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
         switch (item.getItemId()){
             case R.id.action_insert_dummy_data:
                 // TODO:
+                fachEinfuegen();
                 Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.action_delete_all_entries:
                 // TODO:
+                alleFaecherLoeschen();
                 Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_LONG).show();
                 break;
         }
@@ -105,15 +112,38 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        // Define a projection that specifies the columns from the table we care about.
+        String[] projection = {
+                FachEntry._ID,
+                FachEntry.COLUMN_FACH_NAME };
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                FachEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
+        mCursorAdapter.swapCursor(data);
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
+    }
 
+    private void fachEinfuegen() {
+        ContentValues values = new ContentValues();
+        values.put(FachEntry.COLUMN_FACH_NAME, "Mathe");
+
+        Uri newUri = getContentResolver().insert(FachEntry.CONTENT_URI, values);
+    }
+
+    private void alleFaecherLoeschen() {
+        int rowsDeleted = getContentResolver().delete(FachEntry.CONTENT_URI, null, null);
+        Log.v(LOG_NAME, rowsDeleted + " rows deleted from pet database");
     }
 }

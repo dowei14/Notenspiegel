@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
 
 /**
@@ -29,7 +30,7 @@ public class FachCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView nameTextView = (TextView) view.findViewById(R.id.fach_name);
 
-        int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_FACH_NAME);
+        int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
 
         String fachName = cursor.getString(nameColumnIndex);
 

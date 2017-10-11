@@ -25,7 +25,7 @@ public class NotenspiegelProvider extends ContentProvider{
     static {
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN, NOTEN);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN + "/#", NOTEN_ID);
-        sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN + "/*", NOTEN_FACH_FILTER);
+        sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN_FACH + "/*", NOTEN_FACH_FILTER);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_FAECHER, FACH);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_FAECHER + "/#", FACH_ID);
     }
@@ -67,8 +67,7 @@ public class NotenspiegelProvider extends ContentProvider{
                         null, null, sortOrder);
                 break;
             case NOTEN_FACH_FILTER:
-                Log.e(LOG_TAG,uri.toString());
-                selection = NotenEntry.COLUMN_FACH_NAME + "=?";
+                selection = NotenEntry.COLUMN_FACH_ID + "=?";
                 selectionArgs = new String[] { uri.getLastPathSegment() };
 
                 cursor = database.query(NotenEntry.TABLE_NAME, projection, selection, selectionArgs,
@@ -117,7 +116,7 @@ public class NotenspiegelProvider extends ContentProvider{
     }
 
     private Uri insertNote(Uri uri, ContentValues values){
-        String name = values.getAsString(NotenEntry.COLUMN_FACH_NAME);
+        String name = values.getAsString(NotenEntry.COLUMN_FACH_ID);
         if (name == null) {
             throw new IllegalArgumentException("Fachname muss eingetragen werden");
         }
@@ -227,7 +226,7 @@ public class NotenspiegelProvider extends ContentProvider{
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateNote(uri, contentValues, selection, selectionArgs);
             case NOTEN_FACH_FILTER:
-                selection = NotenEntry.COLUMN_FACH_NAME + "=?";
+                selection = NotenEntry.COLUMN_FACH_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateNote(uri, contentValues, selection, selectionArgs);
             case FACH:
@@ -243,8 +242,8 @@ public class NotenspiegelProvider extends ContentProvider{
     private int updateNote(Uri uri, ContentValues values, String selection, String[] selectionArgs){
         // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
         // check that the name value is not null.
-        if (values.containsKey(NotenEntry.COLUMN_FACH_NAME)) {
-            String name = values.getAsString(NotenEntry.COLUMN_FACH_NAME);
+        if (values.containsKey(NotenEntry.COLUMN_FACH_ID)) {
+            String name = values.getAsString(NotenEntry.COLUMN_FACH_ID);
             if (name == null) {
                 throw new IllegalArgumentException("Fachname benötigt");
             }

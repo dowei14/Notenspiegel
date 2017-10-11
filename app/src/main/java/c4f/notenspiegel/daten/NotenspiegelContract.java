@@ -28,6 +28,9 @@ public final class NotenspiegelContract {
 
     public static final String PATH_NOTEN = "noten";
 
+    public static final String PATH_NOTEN_FACH = "noten/fach";
+
+
     public static final class FachEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_FAECHER);
@@ -49,6 +52,7 @@ public final class NotenspiegelContract {
     public static final class NotenEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_NOTEN);
+        public static final Uri CONTENT_FILTER_FACH_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_NOTEN_FACH);
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_NOTEN;
@@ -60,7 +64,7 @@ public final class NotenspiegelContract {
 
         public final static String _ID = BaseColumns._ID;
 
-        public final static String COLUMN_FACH_NAME ="fach_name";
+        public final static String COLUMN_FACH_ID ="fach_id";
 
         public final static String COLUMN_NOTEN_NAME ="noten_name";
 

@@ -62,14 +62,15 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(FaecherActivity.this, NotenActivity.class);
-
+                /*
                 Cursor cursor = mCursorAdapter.getCursor();
                 cursor.moveToPosition(position);
                 int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
                 String fachName = cursor.getString(nameColumnIndex);
 
                 Uri fachUri = Uri.withAppendedPath(NotenspiegelContract.NotenEntry.CONTENT_URI, fachName);
-
+                */
+                Uri fachUri = ContentUris.withAppendedId(NotenspiegelContract.NotenEntry.CONTENT_FILTER_FACH_URI,id);
                 // Set the URI on the data field of the intent
                 intent.setData(fachUri);
                 // Launch the {@link EditorActivity} to display the data for the current pet.
@@ -133,6 +134,7 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
 
     private void alleFaecherLoeschen() {
         int rowsDeleted = getContentResolver().delete(FachEntry.CONTENT_URI, null, null);
+        int rowsNotenDeleted = getContentResolver().delete(NotenspiegelContract.NotenEntry.CONTENT_URI, null, null);
         Log.v(LOG_NAME, rowsDeleted + " rows deleted from pet database");
     }
 }

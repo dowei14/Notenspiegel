@@ -32,6 +32,8 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     /** Content URI for the existing pet (null if it's a new pet) */
     private Uri mCurrentUri;
 
+    private int mCurrentFachID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,10 +91,14 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         // in order to figure out if we're creating a new pet or editing an existing one.
         Intent intent = getIntent();
         mCurrentUri = intent.getData();
+
+
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
         if (mCurrentUri != null) {
             getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
+            mCurrentFachID = Integer.parseInt(mCurrentUri.getLastPathSegment());
+            Log.e(LOG_NAME,mCurrentUri.getLastPathSegment());
         }
 
     }
@@ -121,7 +127,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         // Define a projection that specifies the columns from the table we care about.
         String[] projection = {
                 NotenEntry._ID,
-                NotenEntry.COLUMN_FACH_NAME,
+                NotenEntry.COLUMN_FACH_ID,
                 NotenEntry.COLUMN_NOTEN_NAME,
                 NotenEntry.CLUMN_NOTE };
 
@@ -145,7 +151,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void noteEinfuegen() {
         ContentValues values = new ContentValues();
-        values.put(NotenEntry.COLUMN_FACH_NAME, "Deutsch");
+        values.put(NotenEntry.COLUMN_FACH_ID, mCurrentFachID);
         values.put(NotenEntry.COLUMN_NOTEN_NAME, "Klassenarbeit 1");
         values.put(NotenEntry.CLUMN_NOTE, "150");
 

@@ -29,7 +29,7 @@ public class NotenCursorAdapter extends CursorAdapter {
         TextView notenNameTextView = (TextView) view.findViewById(R.id.noten_list_noten_name);
         TextView notenTextView = (TextView) view.findViewById(R.id.noten_list_note);
 
-        int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_FACH_NAME);
+        int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_FACH_ID);
         int notenNameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTEN_NAME);
         int noteColumnIndex = cursor.getColumnIndex(NotenEntry.CLUMN_NOTE);
 

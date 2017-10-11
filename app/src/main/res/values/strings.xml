@@ -26,4 +26,20 @@
     <string name="keep_editing">Weiter bearbeiten</string>
     <string name="leere_noten_view_text">Keine Noten eingetragen</string>
     <string name="fach_bearbeiten">Fach Bearbeiten</string>
+    <string name="category_note">Note</string>
+    <string name="hint_note_beschreibung">z.B. Klassenarbeit 1</string>
+    <string name="hint_note">z.B. 1,5</string>
+    <string name="category_note_beschreibung">Beschreibung</string>
+    <string name="editor_activity_title_neues_note">Neue Note hinzufügen</string>
+    <string name="editor_activity_title_note_bearbeiten">Note Bearbeiten</string>
+    <string name="editor_insert_note_failed">Note hinzufügen fehlgeschlagen</string>
+    <string name="editor_insert_note_successful">Note hinzufügen fehlgeschlagen</string>
+    <string name="editor_update_note_failed">Note bearbeiten fehlgeschlagen</string>
+    <string name="editor_update_note_successful">Note bearbeiten erfolgreich</string>
+    <string name="delete_dialog_msg_note">Achtung, soll die Note wirklich gelöscht werden</string>
+    <string name="editor_delete_note_failed">Note Löschen fehlgeschlagen</string>
+    <string name="editor_delete_note_successful">Note erfolgreich gelöscht</string>
+
+    <string name="passCurrentSubjectID">passCurrentSubjectID</string>
+    <string name="passCurrentSubjectName">passCurrentSubjectName</string>
 </resources>

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -46,11 +47,10 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: NotenBearbeitenActivity erstellen und hier verlinken
-                //Intent intent = new Intent(NotenActivity.this, NotenBearbeitenActivity.class);
-                //startActivity(intent);
-                Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_LONG).show();
-
+                Intent intent = new Intent(NotenActivity.this, NotenEditorActivity.class);
+                intent.putExtra(String.valueOf(R.string.passCurrentSubjectID),mCurrentFachID);
+                intent.putExtra(String.valueOf(R.string.passCurrentSubjectName),mCurrentFachName);
+                startActivity(intent);
             }
         });
 
@@ -65,14 +65,13 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new NotenCursorAdapter(this, null);
         notenListView.setAdapter(mCursorAdapter);
-/**     TODO: bei Onclicklistener Note bearbeiten
 
         // Setup the item click listener
         notenListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Create new intent to go to {@link EditorActivity}
-                Intent intent = new Intent(NotenActivity.this, NoteBearbeiten.class);
+                Intent intent = new Intent(NotenActivity.this, NotenEditorActivity.class);
 
                 // Form the content URI that represents the specific pet that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
@@ -83,13 +82,14 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentNotenUri);
+                intent.putExtra(String.valueOf(R.string.passCurrentSubjectID),mCurrentFachID);
+                intent.putExtra(String.valueOf(R.string.passCurrentSubjectName),mCurrentFachName);
 
                 // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
             }
         });
 
- */
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new pet or editing an existing one.
         Intent intent = getIntent();
@@ -98,12 +98,11 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
         // If the intent DOES NOT contain a pet content URI, then we know that we are
         // creating a new pet.
+
         if (mCurrentUri != null) {
             getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
-            mCurrentFachID = Integer.parseInt(mCurrentUri.getLastPathSegment());
-            mCurrentFachName = getFachName(mCurrentFachID);
-            setTitle(mCurrentFachName);
         }
+        updateSubjectAndTitle();
 
     }
 
@@ -195,4 +194,18 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         startActivity(intent);
     }
 
+    private void updateSubjectAndTitle(){
+        if (mCurrentUri != null) {
+            mCurrentFachID = Integer.parseInt(mCurrentUri.getLastPathSegment());
+            mCurrentFachName = getFachName(mCurrentFachID);
+            setTitle(mCurrentFachName);
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        updateSubjectAndTitle();
+        getSupportLoaderManager().restartLoader(NOTENSPIEGEL_LOADER,null, this);
+    }
 }

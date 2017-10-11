@@ -30,7 +30,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FaecherActivity" />
         </activity>
-
+        <activity android:name=".NotenEditorActivity"
+            android:label="Notenspiegel: NotenEditor"
+            android:parentActivityName=".NotenActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".NotenActivity" />
+        </activity>
         <provider
             android:authorities="com.c4f.android.notenspiegel"
             android:name=".daten.NotenspiegelProvider"

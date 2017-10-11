@@ -17,6 +17,7 @@ public class NotenspiegelProvider extends ContentProvider{
     public static final String LOG_TAG = NotenspiegelProvider.class.getSimpleName();
     private static final int NOTEN = 100;
     private static final int NOTEN_ID = 101;
+    private static final int NOTEN_FACH_FILTER = 102;
     private static final int FACH = 200;
     private static final int FACH_ID = 201;
 
@@ -24,6 +25,7 @@ public class NotenspiegelProvider extends ContentProvider{
     static {
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN, NOTEN);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN + "/#", NOTEN_ID);
+        sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_NOTEN + "/*", NOTEN_FACH_FILTER);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_FAECHER, FACH);
         sUriMatcher.addURI(NotenspiegelContract.CONTENT_AUTHORITY, NotenspiegelContract.PATH_FAECHER + "/#", FACH_ID);
     }
@@ -41,7 +43,6 @@ public class NotenspiegelProvider extends ContentProvider{
         SQLiteDatabase database = mDbHelper.getReadableDatabase();
         Cursor cursor;
         int match = sUriMatcher.match(uri);
-
         switch (match) {
             case FACH:
                 cursor = database.query(FachEntry.TABLE_NAME, projection, selection, selectionArgs,
@@ -65,6 +66,14 @@ public class NotenspiegelProvider extends ContentProvider{
                 cursor = database.query(NotenEntry.TABLE_NAME, projection, selection, selectionArgs,
                         null, null, sortOrder);
                 break;
+            case NOTEN_FACH_FILTER:
+                Log.e(LOG_TAG,uri.toString());
+                selection = NotenEntry.COLUMN_FACH_NAME + "=?";
+                selectionArgs = new String[] { uri.getLastPathSegment() };
+
+                cursor = database.query(NotenEntry.TABLE_NAME, projection, selection, selectionArgs,
+                        null, null, sortOrder);
+                break;
             default:
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
         }
@@ -83,6 +92,8 @@ public class NotenspiegelProvider extends ContentProvider{
                 return NotenEntry.CONTENT_LIST_TYPE;
             case NOTEN_ID:
                 return NotenEntry.CONTENT_ITEM_TYPE;
+            case NOTEN_FACH_FILTER:
+                return NotenEntry.CONTENT_LIST_TYPE;
             case FACH:
                 return FachEntry.CONTENT_LIST_TYPE;
             case FACH_ID:
@@ -215,6 +226,16 @@ public class NotenspiegelProvider extends ContentProvider{
                 selection = NotenEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateNote(uri, contentValues, selection, selectionArgs);
+            case NOTEN_FACH_FILTER:
+                selection = NotenEntry.COLUMN_FACH_NAME + "=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateNote(uri, contentValues, selection, selectionArgs);
+            case FACH:
+                return updateFach(uri, contentValues, selection, selectionArgs);
+            case FACH_ID:
+                selection = FachEntry._ID +"=?";
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
+                return updateFach(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update ist nicht unterstützt für " + uri);
         }

@@ -24,4 +24,5 @@
     <string name="unsaved_changes_dialog_msg">Achtung - nicht gespeicherte Änderungen</string>
     <string name="discard">Verwerfen</string>
     <string name="keep_editing">Weiter bearbeiten</string>
+    <string name="leere_noten_view_text">Keine Noten eingetragen</string>
 </resources>

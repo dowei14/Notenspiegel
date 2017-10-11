@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import c4f.notenspiegel.daten.NotenspiegelContract;
 import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
 public class FaecherActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
@@ -62,17 +63,15 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(FaecherActivity.this, NotenActivity.class);
 
-                // TODO: nur Noten mit diesem Fach öffnen
-                // Form the content URI that represents the specific pet that was clicked on,
-                // by appending the "id" (passed as input to this method) onto the
-                // {@link PetEntry#CONTENT_URI}.
-                // For example, the URI would be "content://com.example.android.pets/pets/2"
-                // if the pet with ID 2 was clicked on.
-                //Uri currentFachUri = ContentUris.withAppendedId(FachEntry.CONTENT_URI, id);
+                Cursor cursor = mCursorAdapter.getCursor();
+                cursor.moveToPosition(position);
+                int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
+                String fachName = cursor.getString(nameColumnIndex);
+
+                Uri fachUri = Uri.withAppendedPath(NotenspiegelContract.NotenEntry.CONTENT_URI, fachName);
 
                 // Set the URI on the data field of the intent
-                //intent.setData(currentFachUri);
-
+                intent.setData(fachUri);
                 // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
             }

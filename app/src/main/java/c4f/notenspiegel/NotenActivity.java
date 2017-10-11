@@ -1,6 +1,7 @@
 package c4f.notenspiegel;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
     /** Adapter for the ListView */
     NotenCursorAdapter mCursorAdapter;
+
+    /** Content URI for the existing pet (null if it's a new pet) */
+    private Uri mCurrentUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,16 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         });
 
  */
-        getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
+        // Examine the intent that was used to launch this activity,
+        // in order to figure out if we're creating a new pet or editing an existing one.
+        Intent intent = getIntent();
+        mCurrentUri = intent.getData();
+        // If the intent DOES NOT contain a pet content URI, then we know that we are
+        // creating a new pet.
+        if (mCurrentUri != null) {
+            getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
+        }
+
     }
 
     @Override
@@ -114,7 +127,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                NotenEntry.CONTENT_URI,   // Provider content URI to query
+                mCurrentUri,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -132,7 +145,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private void noteEinfuegen() {
         ContentValues values = new ContentValues();
-        values.put(NotenEntry.COLUMN_FACH_NAME, "Mathe");
+        values.put(NotenEntry.COLUMN_FACH_NAME, "Deutsch");
         values.put(NotenEntry.COLUMN_NOTEN_NAME, "Klassenarbeit 1");
         values.put(NotenEntry.CLUMN_NOTE, "150");
 

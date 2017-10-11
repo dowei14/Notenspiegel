@@ -15,7 +15,7 @@
         android:id="@+id/leerer_text_view_noten"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/leerer_fach_view_text"/>
+        android:text="@string/leere_noten_view_text"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_noten"

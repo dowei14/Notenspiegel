@@ -12,9 +12,6 @@ import android.util.Log;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
 import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
-/**
- * Created by dswvi on 06-Oct-17.
- */
 
 public class NotenspiegelProvider extends ContentProvider{
     public static final String LOG_TAG = NotenspiegelProvider.class.getSimpleName();
@@ -114,9 +111,13 @@ public class NotenspiegelProvider extends ContentProvider{
             throw new IllegalArgumentException("Fachname muss eingetragen werden");
         }
 
-        // Check that the gender is valid
-        Integer gender = values.getAsInteger(NotenEntry.CLUMN_NOTE);
-        if (gender == null ) {
+        String notenName = values.getAsString(NotenEntry.COLUMN_NOTEN_NAME);
+        if (notenName == null) {
+            throw new IllegalArgumentException("NotenName muss eingetragen werden");
+        }
+
+        Integer note = values.getAsInteger(NotenEntry.CLUMN_NOTE);
+        if (note == null ) {
             throw new IllegalArgumentException("Note muss eingetragen werden");
         }
 

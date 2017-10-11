@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
+import org.w3c.dom.Text;
 
-/**
- * Created by dswvi on 07-Oct-17.
- */
+import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
 
 public class NotenCursorAdapter extends CursorAdapter {
 
@@ -28,15 +26,19 @@ public class NotenCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView nameTextView = (TextView) view.findViewById(R.id.noten_list_fach_name);
+        TextView notenNameTextView = (TextView) view.findViewById(R.id.noten_list_noten_name);
         TextView notenTextView = (TextView) view.findViewById(R.id.noten_list_note);
 
         int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_FACH_NAME);
+        int notenNameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTEN_NAME);
         int noteColumnIndex = cursor.getColumnIndex(NotenEntry.CLUMN_NOTE);
 
         String fachName = cursor.getString(nameColumnIndex);
+        String notenNameName = cursor.getString(notenNameColumnIndex);
         String notenName = Double.toString( cursor.getDouble(noteColumnIndex) / 100);
 
         nameTextView.setText(fachName);
+        notenNameTextView.setText(notenNameName);
         notenTextView.setText(notenName);
     }
 }

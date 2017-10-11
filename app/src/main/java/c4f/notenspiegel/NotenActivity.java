@@ -109,6 +109,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         String[] projection = {
                 NotenEntry._ID,
                 NotenEntry.COLUMN_FACH_NAME,
+                NotenEntry.COLUMN_NOTEN_NAME,
                 NotenEntry.CLUMN_NOTE };
 
         // This loader will execute the ContentProvider's query method on a background thread
@@ -132,6 +133,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     private void noteEinfuegen() {
         ContentValues values = new ContentValues();
         values.put(NotenEntry.COLUMN_FACH_NAME, "Mathe");
+        values.put(NotenEntry.COLUMN_NOTEN_NAME, "Klassenarbeit 1");
         values.put(NotenEntry.CLUMN_NOTE, "150");
 
         Uri newUri = getContentResolver().insert(NotenEntry.CONTENT_URI, values);

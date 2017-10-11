@@ -7,10 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
 import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
-/**
- * Created by dswvi on 06-Oct-17.
- */
-
 public class NotenspiegelDbHelper extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "notenspiegel.db";
@@ -25,6 +21,7 @@ public class NotenspiegelDbHelper extends SQLiteOpenHelper{
         String SQL_CREATE_TABLE_NOTEN =  "CREATE TABLE " + NotenEntry.TABLE_NAME + " ("
                 + NotenEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NotenEntry.CLUMN_NOTE + " INTEGER NOT NULL, "
+                + NotenEntry.COLUMN_NOTEN_NAME + " TEXT NOT NULL, "
                 + NotenEntry.COLUMN_FACH_NAME + " TEXT NOT NULL);";
 
         db.execSQL(SQL_CREATE_TABLE_NOTEN);

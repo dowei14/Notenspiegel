@@ -15,7 +15,7 @@ public final class NotenspiegelContract {
     /**
      * Leerer Constructor damit nicht jemand ausversehen die Klasse instantiert
      */
-    private NotenspiegelContract(){};
+    private NotenspiegelContract(){}
 
     /**
      * Das ist der Name der des Content Providers - damit kann auf die Datenbank zugegriffen werden
@@ -61,6 +61,8 @@ public final class NotenspiegelContract {
         public final static String _ID = BaseColumns._ID;
 
         public final static String COLUMN_FACH_NAME ="fach_name";
+
+        public final static String COLUMN_NOTEN_NAME ="noten_name";
 
         public final static String CLUMN_NOTE ="note";
     }

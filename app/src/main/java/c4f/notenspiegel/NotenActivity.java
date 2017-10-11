@@ -1,5 +1,6 @@
 package c4f.notenspiegel;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import c4f.notenspiegel.daten.NotenspiegelContract;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
+import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
 public class NotenActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
     private static final String LOG_NAME = NotenActivity.class.getSimpleName();
@@ -33,6 +35,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     private Uri mCurrentUri;
 
     private int mCurrentFachID;
+    private String mCurrentFachName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +101,8 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         if (mCurrentUri != null) {
             getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
             mCurrentFachID = Integer.parseInt(mCurrentUri.getLastPathSegment());
-            Log.e(LOG_NAME,mCurrentUri.getLastPathSegment());
+            mCurrentFachName = getFachName(mCurrentFachID);
+            setTitle(mCurrentFachName);
         }
 
     }
@@ -161,6 +165,23 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     private void alleNotenLoeschen() {
         int rowsDeleted = getContentResolver().delete(NotenEntry.CONTENT_URI, null, null);
         Log.v(LOG_NAME, rowsDeleted + " rows deleted from pet database");
+    }
+
+    private String getFachName(int id){
+        String fachName = null;
+        Uri fachUri = ContentUris.withAppendedId(NotenspiegelContract.FachEntry.CONTENT_URI,id);
+        String[] projection = {
+                NotenspiegelContract.FachEntry._ID,
+                NotenspiegelContract.FachEntry.COLUMN_FACH_NAME };
+
+        Cursor cursor = getContentResolver().query(fachUri,projection,null,null,null);
+
+        if (cursor.moveToFirst()) {
+            int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
+            fachName = cursor.getString(nameColumnIndex);
+        }
+
+        return fachName;
     }
 
 }

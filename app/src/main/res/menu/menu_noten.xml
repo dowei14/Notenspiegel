@@ -5,8 +5,13 @@
     tools:context=".FaecherActivity">
 
     <item
+        android:id="@+id/action_fach_bearbeiten"
+        android:title="@string/fach_bearbeiten"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_dummy_note_einfuegen"
-        android:title="@string/dummy_fach_einfügen"
+        android:title="@string/dummy_note_einfügen"
         app:showAsAction="never" />
 
     <item

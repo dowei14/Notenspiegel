@@ -25,4 +25,5 @@
     <string name="discard">Verwerfen</string>
     <string name="keep_editing">Weiter bearbeiten</string>
     <string name="leere_noten_view_text">Keine Noten eingetragen</string>
+    <string name="fach_bearbeiten">Fach Bearbeiten</string>
 </resources>

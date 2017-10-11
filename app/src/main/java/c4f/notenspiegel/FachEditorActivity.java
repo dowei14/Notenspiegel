@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -292,16 +293,45 @@ public class FachEditorActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return null;
+        // Since the editor shows all pet attributes, define a projection that contains
+        // all columns from the pet table
+        String[] projection = {
+                FachEntry._ID,
+                FachEntry.COLUMN_FACH_NAME };
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                mCurrentFachUri,         // Query the content URI for the current pet
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
 
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of pet attributes that we're interested in
+            int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
+
+            // Extract out the value from the Cursor for the given column index
+            String name = cursor.getString(nameColumnIndex);
+
+            // Update the views on the screen with the values from the database
+            mNameEditText.setText(name);
+
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        mNameEditText.setText("");
     }
 }

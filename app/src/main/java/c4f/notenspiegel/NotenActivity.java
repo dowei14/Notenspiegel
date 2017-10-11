@@ -116,6 +116,9 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_fach_bearbeiten:
+                fachBearbeiten();
+                break;
             case R.id.action_dummy_note_einfuegen:
                 noteEinfuegen();
                 break;
@@ -182,6 +185,14 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         return fachName;
+    }
+
+    private void fachBearbeiten(){
+        Intent intent = new Intent(NotenActivity.this, FachEditorActivity.class);
+        Uri fachUri = ContentUris.withAppendedId(FachEntry.CONTENT_URI,mCurrentFachID);
+        // Set the URI on the data field of the intent
+        intent.setData(fachUri);
+        startActivity(intent);
     }
 
 }

@@ -8,4 +8,20 @@
     <string name="noten_activity_name">Notenspiegel: Noten</string>
     <string name="hint_fach_name">Name</string>
     <string name="category_fach">Fach</string>
+    <string name="editor_activity_title_neues_fach">Neues Fach hinzufügen</string>
+    <string name="editor_activity_title_fach_bearbeiten">Fach bearbeiten</string>
+    <string name="editor_insert_fach_failed">Fach hinzufügen fehlgeschlagen</string>
+    <string name="editor_insert_face_successful">Fach erfolgreich hinzugefügt</string>
+    <string name="editor_update_fach_failed">Fach bearbeiten fehlgeschlagen</string>
+    <string name="editor_update_fach_successful">fach bearbeiten erfolgreich</string>
+    <string name="action_delete">Löschen</string>
+    <string name="action_save">Speichern</string>
+    <string name="delete_dialog_msg">Soll das Fach wirklich gelöscht werden?</string>
+    <string name="delete">Löschen</string>
+    <string name="editor_delete_fach_failed">Fach löschen fehlgeschlagen</string>
+    <string name="editor_delete_fach_successful">Fach erfolgreich gelöscht</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="unsaved_changes_dialog_msg">Achtung - nicht gespeicherte Änderungen</string>
+    <string name="discard">Verwerfen</string>
+    <string name="keep_editing">Weiter bearbeiten</string>
 </resources>

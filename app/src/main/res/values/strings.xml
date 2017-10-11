@@ -6,4 +6,6 @@
     <string name="action_alle_faecher_loeschen">Alle Fächer löschen</string>
     <string name="action_alle_noten_loeschen">Alle Noten löschen</string>
     <string name="noten_activity_name">Notenspiegel: Noten</string>
+    <string name="hint_fach_name">Name</string>
+    <string name="category_fach">Fach</string>
 </resources>

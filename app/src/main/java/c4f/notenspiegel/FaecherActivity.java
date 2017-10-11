@@ -39,11 +39,8 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO FaecherBearbeitenActivity erstellen und hier starten
-                //Intent intent = new Intent(FaecherActivity.this, FaecherBearbeitenActivity.class);
-                //startActivity(intent);
-                Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_LONG).show();
-
+                Intent intent = new Intent(FaecherActivity.this, FachEditorActivity.class);
+                startActivity(intent);
             }
         });
 

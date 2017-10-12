@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import c4f.notenspiegel.daten.NotenspiegelContract;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
@@ -135,7 +134,8 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
                 NotenEntry._ID,
                 NotenEntry.COLUMN_FACH_ID,
                 NotenEntry.COLUMN_NOTEN_NAME,
-                NotenEntry.CLUMN_NOTE };
+                NotenEntry.COLUMN_NOTE,
+                NotenEntry.COLUMN_GEWICHTUNG};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -159,7 +159,8 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         ContentValues values = new ContentValues();
         values.put(NotenEntry.COLUMN_FACH_ID, mCurrentFachID);
         values.put(NotenEntry.COLUMN_NOTEN_NAME, "Klassenarbeit 1");
-        values.put(NotenEntry.CLUMN_NOTE, "150");
+        values.put(NotenEntry.COLUMN_NOTE, "150");
+        values.put(NotenEntry.COLUMN_GEWICHTUNG, "100");
 
         Uri newUri = getContentResolver().insert(NotenEntry.CONTENT_URI, values);
     }

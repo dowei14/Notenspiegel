@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
 
 public class NotenCursorAdapter extends CursorAdapter {
@@ -28,17 +26,21 @@ public class NotenCursorAdapter extends CursorAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.noten_list_fach_name);
         TextView notenNameTextView = (TextView) view.findViewById(R.id.noten_list_noten_name);
         TextView notenTextView = (TextView) view.findViewById(R.id.noten_list_note);
+        TextView gewichtungTextView = (TextView) view.findViewById(R.id.noten_list_gewichtung);
 
         int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_FACH_ID);
         int notenNameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTEN_NAME);
-        int noteColumnIndex = cursor.getColumnIndex(NotenEntry.CLUMN_NOTE);
+        int noteColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTE);
+        int gewichtungColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_GEWICHTUNG);
 
         String fachName = cursor.getString(nameColumnIndex);
         String notenNameName = cursor.getString(notenNameColumnIndex);
         String notenName = Double.toString( cursor.getDouble(noteColumnIndex) / 100);
+        String gewichtungName = Double.toString( cursor.getDouble(gewichtungColumnIndex) / 100);
 
         nameTextView.setText(fachName);
         notenNameTextView.setText(notenNameName);
         notenTextView.setText(notenName);
+        gewichtungTextView.setText(gewichtungName);
     }
 }

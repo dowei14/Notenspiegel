@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.app.NavUtils;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
@@ -37,6 +36,7 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
     /** EditText field to enter the pet's name */
     private EditText mNotenNameEditText;
     private EditText mNoteEditText;
+    private EditText mGewichtungEditText;
 
     /** Boolean flag that keeps track of whether the pet has been edited (true) or not (false) */
     private boolean mNoteChanged = false;
@@ -90,14 +90,17 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
 
         mNotenNameEditText = (EditText) findViewById(R.id.edit_note_beschreibung);
         mNoteEditText = (EditText) findViewById(R.id.edit_note);
+        mGewichtungEditText = (EditText) findViewById(R.id.edit_gewichtung);
         mNotenNameEditText.setOnTouchListener(mTouchListener);
         mNoteEditText.setOnTouchListener(mTouchListener);
+        mGewichtungEditText.setOnTouchListener(mTouchListener);
     }
 
     // get User input and save to database
     private void noteSpeichern() {
         String nameString = mNotenNameEditText.getText().toString().trim();
         String noteString = mNoteEditText.getText().toString().trim();
+        String gewichtungString = mGewichtungEditText.getText().toString().trim();
 
         // Check if this is supposed to be a new pet
         // and check if all the fields in the editor are blank
@@ -117,7 +120,15 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
             tmp = tmp * 100; // Noten sind in der Datenbank als Integer gespeichert. Daher die dezimal zahl *100, danach als int speichern
             note = tmp.intValue();
         }
-        values.put(NotenEntry.CLUMN_NOTE, note);
+        values.put(NotenEntry.COLUMN_NOTE, note);
+
+        int gewichtung = 0;
+        if (!TextUtils.isEmpty(gewichtungString)){
+            Double tmp = Double.parseDouble(gewichtungString);
+            tmp = tmp * 100; // Noten sind in der Datenbank als Integer gespeichert. Daher die dezimal zahl *100, danach als int speichern
+            gewichtung = tmp.intValue();
+        }
+        values.put(NotenEntry.COLUMN_GEWICHTUNG, gewichtung);
 
         values.put(NotenEntry.COLUMN_FACH_ID,mCurrentFachID);
         Log.e(LOG_TAG,String.valueOf(mCurrentFachID));
@@ -320,8 +331,9 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
         // all columns from the pet table
         String[] projection = {
                 NotenEntry._ID,
-                NotenEntry.CLUMN_NOTE,
-                NotenEntry.COLUMN_NOTEN_NAME };
+                NotenEntry.COLUMN_NOTE,
+                NotenEntry.COLUMN_NOTEN_NAME,
+                NotenEntry.COLUMN_GEWICHTUNG };
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -344,14 +356,17 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
         if (cursor.moveToFirst()) {
             // Find the columns of pet attributes that we're interested in
             int nameColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTEN_NAME);
-            int noteColumnIndex = cursor.getColumnIndex(NotenEntry.CLUMN_NOTE);
+            int noteColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTE);
+            int gewichtungColumnIndex = cursor.getColumnIndex(NotenEntry.COLUMN_GEWICHTUNG);
 
             // Extract out the value from the Cursor for the given column index
             String name = cursor.getString(nameColumnIndex);
             String note = cursor.getString(noteColumnIndex);
+            String gewichtung = cursor.getString(gewichtungColumnIndex);
             // Update the views on the screen with the values from the database
             mNotenNameEditText.setText(name);
             mNoteEditText.setText(stringIntToDecString(note));
+            mGewichtungEditText.setText(stringIntToDecString(gewichtung));
 
         }
     }
@@ -361,6 +376,7 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
 
         mNoteEditText.setText("");
         mNotenNameEditText.setText("");
+        mGewichtungEditText.setText("");
     }
 
     private String stringIntToDecString(String input){

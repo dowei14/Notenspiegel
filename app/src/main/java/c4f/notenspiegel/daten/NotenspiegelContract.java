@@ -68,7 +68,9 @@ public final class NotenspiegelContract {
 
         public final static String COLUMN_NOTEN_NAME ="noten_name";
 
-        public final static String CLUMN_NOTE ="note";
+        public final static String COLUMN_NOTE ="note";
+
+        public final static String COLUMN_GEWICHTUNG ="gewichtung";
     }
 
 }

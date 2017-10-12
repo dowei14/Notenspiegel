@@ -42,4 +42,6 @@
 
     <string name="passCurrentSubjectID">passCurrentSubjectID</string>
     <string name="passCurrentSubjectName">passCurrentSubjectName</string>
+    <string name="category_gewichtung">Gewichtung</string>
+    <string name="hint_gewichtung">z.B. 1.0</string>
 </resources>

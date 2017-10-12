@@ -20,9 +20,10 @@ public class NotenspiegelDbHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String SQL_CREATE_TABLE_NOTEN =  "CREATE TABLE " + NotenEntry.TABLE_NAME + " ("
                 + NotenEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NotenEntry.CLUMN_NOTE + " INTEGER NOT NULL, "
+                + NotenEntry.COLUMN_NOTE + " INTEGER NOT NULL, "
                 + NotenEntry.COLUMN_NOTEN_NAME + " TEXT NOT NULL, "
-                + NotenEntry.COLUMN_FACH_ID + " INTEGER NOT NULL);";
+                + NotenEntry.COLUMN_FACH_ID + " INTEGER NOT NULL, "
+                + NotenEntry.COLUMN_GEWICHTUNG + " INTEGER NOT NULL );";
 
         db.execSQL(SQL_CREATE_TABLE_NOTEN);
 

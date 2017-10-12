@@ -126,9 +126,14 @@ public class NotenspiegelProvider extends ContentProvider{
             throw new IllegalArgumentException("NotenName muss eingetragen werden");
         }
 
-        Integer note = values.getAsInteger(NotenEntry.CLUMN_NOTE);
+        Integer note = values.getAsInteger(NotenEntry.COLUMN_NOTE);
         if (note == null ) {
             throw new IllegalArgumentException("Note muss eingetragen werden");
+        }
+
+        Integer gewichtung = values.getAsInteger(NotenEntry.COLUMN_GEWICHTUNG);
+        if (gewichtung == null ) {
+            throw new IllegalArgumentException("Gewichtung muss eingetragen werden");
         }
 
         // Get writeable database
@@ -251,10 +256,19 @@ public class NotenspiegelProvider extends ContentProvider{
 
         // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
         // check that the gender value is valid.
-        if (values.containsKey(NotenEntry.CLUMN_NOTE)) {
-            Integer gender = values.getAsInteger(NotenEntry.CLUMN_NOTE);
-            if (gender == null) {
+        if (values.containsKey(NotenEntry.COLUMN_NOTE)) {
+            Integer note = values.getAsInteger(NotenEntry.COLUMN_NOTE);
+            if (note == null) {
                 throw new IllegalArgumentException("Note muss eingetragen werden");
+            }
+        }
+
+        // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
+        // check that the gender value is valid.
+        if (values.containsKey(NotenEntry.COLUMN_GEWICHTUNG)) {
+            Integer gewichtung = values.getAsInteger(NotenEntry.COLUMN_GEWICHTUNG);
+            if (gewichtung == null) {
+                throw new IllegalArgumentException("Gewichtung muss eingetragen werden");
             }
         }
 

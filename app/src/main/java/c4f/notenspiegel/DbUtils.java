@@ -24,7 +24,7 @@ public final class DbUtils {
     public static Double getDurchschnitt(Uri uri, ContentResolver resolver){
         Double durchschnitt = 0.0;
         if (uri != null){
-            int count = 0;
+            double count = 0;
             String[] projection = {
                     NotenspiegelContract.NotenEntry._ID,
                     NotenspiegelContract.NotenEntry.COLUMN_GEWICHTUNG,
@@ -35,9 +35,9 @@ public final class DbUtils {
                 int gewichtungIndex = cursor.getColumnIndex(NotenspiegelContract.NotenEntry.COLUMN_GEWICHTUNG);
                 int noteIndex = cursor.getColumnIndex(NotenspiegelContract.NotenEntry.COLUMN_NOTE);
                 durchschnitt += cursor.getDouble(noteIndex) / 100 * cursor.getDouble(gewichtungIndex) / 100;
-                count++;
+                count += cursor.getDouble(gewichtungIndex) / 100;
             }
-            if (count != 0) durchschnitt = durchschnitt / (double) count;
+            if (count != 0) durchschnitt = durchschnitt / count;
         }
         return durchschnitt;
     }

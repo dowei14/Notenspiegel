@@ -193,6 +193,11 @@ public class NotenspiegelProvider extends ContentProvider{
                 selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
                 rowsDeleted = database.delete(NotenEntry.TABLE_NAME, selection, selectionArgs);
                 break;
+            case NOTEN_FACH_FILTER:
+                selection = NotenEntry.COLUMN_FACH_ID + "=?";
+                selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
+                rowsDeleted = database.delete(NotenEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             case FACH:
                 // Delete all rows that match the selection and selection args
                 rowsDeleted = database.delete(FachEntry.TABLE_NAME, selection, selectionArgs);

@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import c4f.notenspiegel.daten.NotenspiegelContract;
 import c4f.notenspiegel.daten.NotenspiegelContract.NotenEntry;
@@ -36,6 +37,8 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
 
     private int mCurrentFachID;
     private String mCurrentFachName;
+
+    private TextView mDurchschnittTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,9 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         if (mCurrentUri != null) {
             getSupportLoaderManager().initLoader(NOTENSPIEGEL_LOADER, null, this);
         }
+
+        mDurchschnittTextView = (TextView) findViewById(R.id.durchschnitt);
+        updateDurchschnitt();
         updateSubjectAndTitle();
 
     }
@@ -166,7 +172,7 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void alleNotenLoeschen() {
-        int rowsDeleted = getContentResolver().delete(NotenEntry.CONTENT_URI, null, null);
+        int rowsDeleted = getContentResolver().delete(mCurrentUri, null, null);
         Log.v(LOG_NAME, rowsDeleted + " rows deleted from pet database");
     }
 
@@ -203,10 +209,38 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
+    private void updateDurchschnitt(){
+        mDurchschnittTextView.setText(String.format("%.2f", getDurchschnitt()));
+    }
+
+    private Double getDurchschnitt(){
+        Double durchschnitt = 0.0;
+        if (mCurrentUri != null){
+            int count = 0;
+            String[] projection = {
+                    NotenEntry._ID,
+                    NotenEntry.COLUMN_GEWICHTUNG,
+                    NotenEntry.COLUMN_NOTE};
+
+            Cursor cursor = getContentResolver().query(mCurrentUri,projection,null,null,null);
+            while (cursor.moveToNext()) {
+                int gewichtungIndex = cursor.getColumnIndex(NotenEntry.COLUMN_GEWICHTUNG);
+                int noteIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTE);
+                durchschnitt += cursor.getDouble(noteIndex) / 100 * cursor.getDouble(gewichtungIndex) / 100;
+                count++;
+                Log.e(LOG_NAME,durchschnitt.toString());
+                Log.e(LOG_NAME,String.valueOf(count));
+                Log.e(LOG_NAME,"-------");
+            }
+            if (count != 0) durchschnitt = durchschnitt / (double) count;
+        }
+        return durchschnitt;
+    }
     @Override
     protected void onPostResume() {
         super.onPostResume();
         updateSubjectAndTitle();
+        updateDurchschnitt();
         getSupportLoaderManager().restartLoader(NOTENSPIEGEL_LOADER,null, this);
     }
 }

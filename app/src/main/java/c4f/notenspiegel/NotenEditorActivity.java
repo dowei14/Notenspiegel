@@ -131,7 +131,6 @@ public class NotenEditorActivity extends AppCompatActivity implements LoaderMana
         values.put(NotenEntry.COLUMN_GEWICHTUNG, gewichtung);
 
         values.put(NotenEntry.COLUMN_FACH_ID,mCurrentFachID);
-        Log.e(LOG_TAG,String.valueOf(mCurrentFachID));
         // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
         if (mCurrentNotenUri == null) {
             // This is a NEW pet, so insert a new pet into the provider,

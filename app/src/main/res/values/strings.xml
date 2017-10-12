@@ -44,4 +44,8 @@
     <string name="passCurrentSubjectName">passCurrentSubjectName</string>
     <string name="category_gewichtung">Gewichtung</string>
     <string name="hint_gewichtung">z.B. 1.0</string>
+    <string name="ueberschrift_ID">ID</string>
+    <string name="ueberschrift_beschreibung">Beschreibung</string>
+    <string name="ueberschrift_gewichtung">Gewichtung</string>
+    <string name="ueberschrift_note">Note</string>
 </resources>

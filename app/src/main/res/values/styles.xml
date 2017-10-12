@@ -33,4 +33,9 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
+
+    <!-- Überschriften Style -->
+    <style name="UeberschriftStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

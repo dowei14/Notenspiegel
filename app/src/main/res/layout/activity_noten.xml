@@ -5,11 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NotenActivity">
-
-    <ListView
-        android:id="@+id/noten_list"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:padding="@dimen/activity_margin">
+<!--            <TextView
+                android:layout_width="40sp"
+                android:layout_height="match_parent"
+                android:id="@+id/ueberschrift_ID"
+                android:text="@string/ueberschrift_ID"
+                style="@style/UeberschriftStyle" />
+-->
+            <TextView
+                android:layout_width="0sp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/ueberschrift_Beschreibung"
+                android:text="@string/ueberschrift_beschreibung"
+                style="@style/UeberschriftStyle" />
+            <TextView
+                android:layout_width="80sp"
+                android:layout_height="match_parent"
+                android:id="@+id/ueberschrift_gewichtung"
+                android:text="@string/ueberschrift_gewichtung"
+                style="@style/UeberschriftStyle" />
+            <TextView
+                android:layout_width="40sp"
+                android:layout_height="match_parent"
+                android:id="@+id/ueberschrift_note"
+                android:text="@string/ueberschrift_note"
+                style="@style/UeberschriftStyle" />
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+        <ListView
+            android:id="@+id/noten_list"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/leerer_text_view_noten"

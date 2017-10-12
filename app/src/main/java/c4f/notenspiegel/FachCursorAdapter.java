@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import c4f.notenspiegel.daten.NotenspiegelContract.FachEntry;
 
 /**
@@ -28,11 +30,16 @@ public class FachCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView nameTextView = (TextView) view.findViewById(R.id.faecher_list_fach_name);
+        TextView durchschnittTextView = (TextView) view.findViewById(R.id.faecher_list_durchschnitt);
 
         int nameColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_FACH_NAME);
+        int durchschnittColumnIndex = cursor.getColumnIndex(FachEntry.COLUMN_DURCHSCHNITT_NAME);
 
         String fachName = cursor.getString(nameColumnIndex);
+        String durchschnittName = Double.toString(cursor.getDouble(durchschnittColumnIndex)/100);
 
         nameTextView.setText(fachName);
+        durchschnittTextView.setText(durchschnittName);
     }
+
 }

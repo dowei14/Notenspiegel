@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import c4f.notenspiegel.daten.NotenspiegelContract;
@@ -105,7 +106,8 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
         // Define a projection that specifies the columns from the table we care about.
         String[] projection = {
                 FachEntry._ID,
-                FachEntry.COLUMN_FACH_NAME };
+                FachEntry.COLUMN_FACH_NAME,
+                FachEntry.COLUMN_DURCHSCHNITT_NAME};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -117,8 +119,9 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mCursorAdapter.swapCursor(data);
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        mCursorAdapter.swapCursor(cursor);
+
     }
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -137,4 +140,5 @@ public class FaecherActivity extends AppCompatActivity implements LoaderManager.
         int rowsNotenDeleted = getContentResolver().delete(NotenspiegelContract.NotenEntry.CONTENT_URI, null, null);
         Log.v(LOG_NAME, rowsDeleted + " rows deleted from pet database");
     }
+
 }

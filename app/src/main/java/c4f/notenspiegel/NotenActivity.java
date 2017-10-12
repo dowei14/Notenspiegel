@@ -125,9 +125,11 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
                 break;
             case R.id.action_dummy_note_einfuegen:
                 noteEinfuegen();
+                updateDurchschnitt();
                 break;
             case R.id.action_alle_noten_loeschen:
                 alleNotenLoeschen();
+                updateDurchschnitt();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -210,32 +212,23 @@ public class NotenActivity extends AppCompatActivity implements LoaderManager.Lo
     }
 
     private void updateDurchschnitt(){
-        mDurchschnittTextView.setText(String.format("%.2f", getDurchschnitt()));
+        // calc durschschnitt
+        Double durchschnitt = DbUtils.getDurchschnitt(mCurrentUri,getContentResolver());
+
+        // update TextView
+        mDurchschnittTextView.setText(String.format("%.2f", durchschnitt));
+
+        int durchschnittInt = (int)(durchschnitt * 100);
+        // update FaecherDB
+        Uri faecherUri = ContentUris.withAppendedId(FachEntry.CONTENT_URI,mCurrentFachID);
+
+        ContentValues values = new ContentValues();
+        values.put(FachEntry.COLUMN_DURCHSCHNITT_NAME, durchschnittInt);
+
+        getContentResolver().update(faecherUri,values,null,null);
+
     }
 
-    private Double getDurchschnitt(){
-        Double durchschnitt = 0.0;
-        if (mCurrentUri != null){
-            int count = 0;
-            String[] projection = {
-                    NotenEntry._ID,
-                    NotenEntry.COLUMN_GEWICHTUNG,
-                    NotenEntry.COLUMN_NOTE};
-
-            Cursor cursor = getContentResolver().query(mCurrentUri,projection,null,null,null);
-            while (cursor.moveToNext()) {
-                int gewichtungIndex = cursor.getColumnIndex(NotenEntry.COLUMN_GEWICHTUNG);
-                int noteIndex = cursor.getColumnIndex(NotenEntry.COLUMN_NOTE);
-                durchschnitt += cursor.getDouble(noteIndex) / 100 * cursor.getDouble(gewichtungIndex) / 100;
-                count++;
-                Log.e(LOG_NAME,durchschnitt.toString());
-                Log.e(LOG_NAME,String.valueOf(count));
-                Log.e(LOG_NAME,"-------");
-            }
-            if (count != 0) durchschnitt = durchschnitt / (double) count;
-        }
-        return durchschnitt;
-    }
     @Override
     protected void onPostResume() {
         super.onPostResume();

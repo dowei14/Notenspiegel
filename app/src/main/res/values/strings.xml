@@ -33,7 +33,7 @@
     <string name="editor_activity_title_neues_note">Neue Note hinzufügen</string>
     <string name="editor_activity_title_note_bearbeiten">Note Bearbeiten</string>
     <string name="editor_insert_note_failed">Note hinzufügen fehlgeschlagen</string>
-    <string name="editor_insert_note_successful">Note hinzufügen fehlgeschlagen</string>
+    <string name="editor_insert_note_successful">Note erfolgreich hinzugefügt</string>
     <string name="editor_update_note_failed">Note bearbeiten fehlgeschlagen</string>
     <string name="editor_update_note_successful">Note bearbeiten erfolgreich</string>
     <string name="delete_dialog_msg_note">Achtung, soll die Note wirklich gelöscht werden</string>
@@ -49,4 +49,6 @@
     <string name="ueberschrift_gewichtung">Gewichtung</string>
     <string name="ueberschrift_note">Note</string>
     <string name="durchschnitt_name">Durchschnitt</string>
+    <string name="ueberschrift_fach">Fach</string>
+    <string name="ueberschrift_durchschnitt">Durchschnitt</string>
 </resources>

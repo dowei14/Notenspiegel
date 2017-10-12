@@ -29,7 +29,8 @@ public class NotenspiegelDbHelper extends SQLiteOpenHelper{
 
         String SQL_CREATE_TABLE_FAECHER =  "CREATE TABLE " + FachEntry.TABLE_NAME + " ("
                 + FachEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + FachEntry.COLUMN_FACH_NAME + " TEXT NOT NULL);";
+                + FachEntry.COLUMN_FACH_NAME + " TEXT NOT NULL, "
+                + FachEntry.COLUMN_DURCHSCHNITT_NAME + " INTEGER );";
 
         db.execSQL(SQL_CREATE_TABLE_FAECHER);
     }

@@ -47,6 +47,8 @@ public final class NotenspiegelContract {
         public final static String _ID = BaseColumns._ID;
 
         public final static String COLUMN_FACH_NAME ="name";
+
+        public final static String COLUMN_DURCHSCHNITT_NAME ="durchschnitt";
     }
 
     public static final class NotenEntry implements BaseColumns {

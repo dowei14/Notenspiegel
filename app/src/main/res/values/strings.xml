@@ -48,4 +48,5 @@
     <string name="ueberschrift_beschreibung">Beschreibung</string>
     <string name="ueberschrift_gewichtung">Gewichtung</string>
     <string name="ueberschrift_note">Note</string>
+    <string name="durchschnitt_name">Durchschnitt</string>
 </resources>

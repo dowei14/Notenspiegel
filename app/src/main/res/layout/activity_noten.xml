@@ -9,10 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <!-- Überschrift-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50sp"
-            android:padding="@dimen/activity_margin">
+            android:padding="@dimen/activity_margin"
+            android:background="@color/colorPrimaryLight"
+            android:id="@+id/ueberschrift_linear_layout">
 <!--            <TextView
                 android:layout_width="40sp"
                 android:layout_height="match_parent"
@@ -41,23 +44,61 @@
                 style="@style/UeberschriftStyle" />
 
         </LinearLayout>
+
+        <!-- Seperator -->
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray"
+            android:id="@+id/ueberschrift_seperator"/>
+
+        <!-- Liste mit Noten -->
         <ListView
             android:id="@+id/noten_list"
             android:layout_width="match_parent"
             android:layout_height="0sp"
             android:layout_weight="1"/>
+        <TextView
+            android:id="@+id/leerer_text_view_noten"
+            android:layout_width="match_parent"
+            android:layout_height="0sp"
+            android:layout_weight="1"
+            android:text="@string/leere_noten_view_text"/>
+
+        <!-- Seperator -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:id="@+id/durchschnitt_seperator"/>
+
+        <!-- Durchschnitt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:padding="@dimen/activity_margin"
+            android:background="@color/colorPrimaryLight"
+            android:id="@+id/durchschnitt_linear_layout">
+            <TextView
+                android:layout_width="100sp"
+                android:layout_height="match_parent"
+                android:id="@+id/durchschnitt_name"
+                android:text="@string/durchschnitt_name"
+                style="@style/UeberschriftStyle" />
+            <TextView
+                android:layout_width="0sp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/durchschnitt"
+                tools:text="1.0"
+                style="@style/UeberschriftStyle" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/leerer_text_view_noten"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/leere_noten_view_text"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_noten"
